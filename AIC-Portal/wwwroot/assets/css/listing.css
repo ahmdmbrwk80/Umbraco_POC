@@ -1,0 +1,83 @@
+.cardList {
+    display: inline-block;
+    background: #ffffff;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 15px;
+    transition:ease all 0.25s;
+}
+    .cardList:hover {
+        transform: scale(1.025);
+        transition: ease all 0.25s;
+    }
+    .cardList .imgListHolder {
+        width: calc(100% - 40px);
+        padding-top: 50%;
+        background-color: #f1f1f1;
+        margin: 20px 20px 10px;
+        border-radius: 15px;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .cardList .imgListHolder img{
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            bottom:0;
+            right:0;
+        }
+
+        .cardList .cardTitle {
+            padding: 10px 20px;
+            font-size: 22px;
+            font-weight: bold;
+            height: 45px;
+            overflow: hidden;
+            color:#000000;
+        }
+    .cardList .cardTitle {
+        height:80px;
+        padding-bottom: 0;
+    }
+        .cardList .cardDate {
+        padding: 30px 20px 0;
+        font-size: 14px;
+        font-weight: 500;
+        overflow: hidden;
+        color: #999999;
+        font-style:italic;
+    }
+    .cardList .descr {
+        height: 150px;
+        overflow: hidden;
+        padding: 5px 20px 0px;
+        margin-bottom: 20px;
+        line-height: 25px !important;
+        color: #000000;
+    }
+
+    .cardList .cardNumber,
+    .cardList .cardType{
+        overflow: hidden;
+        padding: 10px 20px 0px;
+        line-height: 25px !important;
+        color: #000000;
+        font-weight:500;
+    }
+        .cardList .cardType.two,
+        .cardList .cardNumber.two {
+            margin-bottom: 30px;
+        }
+        .cardList .cardType.two{
+            margin-bottom:30px;
+        }
+        a.descr:hover {
+            color: #000000;
+            text-decoration: none !important;
+        }
+
+a:hover {
+    text-decoration: none !important;
+}

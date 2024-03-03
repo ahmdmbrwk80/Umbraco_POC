@@ -1,0 +1,56 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Project>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "MasterTemplate.cshtml";
+}
+
+
+<h1>@Model.Name</h1>
+<a href="@Model.DemoLink?.Url" target="@Model.DemoLink?.Target"> @Model.DemoLink?.Name </a>
+<p>@Model.DemoDescription</p>
+
+
+@if(Model.PredictionsDecisions != null && Model.PredictionsDecisions.Any())
+{
+	<h2>Predictions & Descisions</h2>
+	<ul>
+		@foreach(var block in Model.PredictionsDecisions)
+		{
+			var content = block.Content.SafeCast<TitleImage>();
+			if(content != null)
+			{
+				<li>
+					<h3>@content.Title</h3>
+					<img src="@content.Image?.Url()" width="500"/>
+				</li>
+			}
+		}
+	</ul>
+}
+
+@if (Model.Media != null && Model.Media.Any())
+{
+	<h2>Some Other Media</h2>
+	<ul>
+		@foreach (var block in Model.Media)
+		{
+			var content = block.Content.SafeCast<TitleVideo>();
+				
+			if (content != null)
+			{
+				var video = content.Video?.Content?.SafeCast<UmbracoMediaVideo>();
+				<li>
+					<h3>@content.Title</h3>
+					@if(video != null)
+					{
+						<video width="400" controls>
+							<source src="@video.UmbracoFile" type="video/@video.UmbracoExtension">
+							Your browser does not support HTML5 video.
+						</video>
+					}
+				</li>
+			}
+		}
+	</ul>
+}

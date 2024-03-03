@@ -1,0 +1,100 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@using AIC.Portal.ViewModels
+@using Umbraco.Cms.Core.Services
+@inject ILocalizationService LocalizationService
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ContactUs>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "MasterTemplate.cshtml";
+    var currentCulture = Umbraco.CultureDictionary.Culture.ToString();
+    var ContactUsForm = LocalizationService.GetDictionaryItemByKey("ContactUsForm").Translations.FirstOrDefault(e => e.LanguageIsoCode == currentCulture).Value;
+    var headofficeAddress = LocalizationService.GetDictionaryItemByKey("headofficeAddress").Translations.FirstOrDefault(e => e.LanguageIsoCode == currentCulture).Value;
+    var headofficePhonenumber = LocalizationService.GetDictionaryItemByKey("headofficePhonenumber").Translations.FirstOrDefault(e => e.LanguageIsoCode == currentCulture).Value;
+    var coordinates = new List<AIC.Portal.ViewModels.CoordinatesViewModel>();
+    var locations = Model?.Locations?.Select(x => x.Content);
+    if (locations != null)
+    {
+        foreach (var location in locations)
+        {
+            coordinates.Add(new AIC.Portal.ViewModels.CoordinatesViewModel
+                    {
+                        Latitude = location.Value<string>("latitude"),
+                        Longitude = location.Value<string>("longitude"),
+                        LocationName = location.Value<string>("locationName"),
+                    });
+        }
+    }
+	
+}
+
+<div class="mainContainer formRestyle">
+    <div cite="row">
+        <div class="col-md-12">
+            @* Static content *@
+            <h3>@Model.Name</h3>
+            @* End of Static content *@
+            </div>
+        <div class="col-md-12">
+    <div class="boxStyle w-100 p-5">
+        <div class="row">
+            <div class="col-md-7">
+                <ul class="contactInfoCard">
+                    <li>
+                        <span class="icon-location"></span>
+                                <span class="w-100 title">@headofficeAddress</span>
+                        <span class="w-100 info">@Model.Address</span>
+                    </li>
+                    <li>
+                        <span class="icon-phone"></span>
+                                <span class="w-100 title">@headofficePhonenumber</span>
+                                <span class="w-100 info">@Model.PhoneNumber</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-5">
+<!-- draw map section -->
+<div id="map" class="contactUsMapContainer" style="height: 250px;"></div>
+<script>
+    // Check if coordinates are available
+    var coordinatesArray = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(coordinates));
+
+    if (coordinatesArray.length > 0) {
+        // Calculate the average coordinates
+        var avgLat = coordinatesArray.reduce((sum, coord) => sum + coord.Latitude, 0) / coordinatesArray.length;
+        var avgLon = coordinatesArray.reduce((sum, coord) => sum + coord.Longitude, 0) / coordinatesArray.length;
+
+        // Set the initial view to the average coordinates
+        var map = L.map('map').setView([avgLat, avgLon], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        coordinatesArray.forEach(function (coordinate) {
+            L.marker([coordinate.Latitude, coordinate.Longitude]).addTo(map)
+                .bindPopup(coordinate.LocationName); // Show a test popup
+        });
+    } else {
+        console.log('No coordinates available.');
+    }
+</script>
+<!--end map section-->
+                </div>
+    </div>
+</div>
+        </div>
+        <div class="col-md-12 mt-4">
+            <div class="boxStyle w-100 p-5">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4><span class="icon-list"></span> @ContactUsForm</h4>
+                    </div>
+                </div>
+                
+@{
+	Html.RenderPartial("~/Views/Partials/ContactUsFormpartial.cshtml", new contactUsViewModel(){lang=currentCulture});
+}
+</div>
+</div>
+    </div>
+            </div>

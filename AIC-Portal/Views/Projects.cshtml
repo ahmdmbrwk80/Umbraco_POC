@@ -1,0 +1,94 @@
+﻿@using AIC.Portal.Helpers
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ProjectDomains>
+@inject IProjectService _projectService
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "MasterTemplate.cshtml";
+	var culture = Umbraco.CultureDictionary.Culture.ToString();
+	var domainQuery = Context.Request.Query[IProjectService.QueryParam].ToString();
+	var hasDomainQuery = !string.IsNullOrEmpty(domainQuery);
+	domainQuery = hasDomainQuery 
+		? domainQuery.Replace("-", " ") : 
+		culture.Equals("en-US") ? "Applications Domain" : "مجال التطبيقات";
+}
+
+<div class="mainContainer">
+	<h3>Projects</h3>
+	<nav>
+		<div class="nav nav-tabs" id="nav-tab" role="tablist">
+			@foreach (var domain in Model.Children.OfType<Domain>())
+			{
+				var isActive = domain.Name.Equals(domainQuery);
+				<button 
+					class="nav-link @(isActive ? "active" : string.Empty) " 
+					id="@domain.Name" 
+					data-toggle="tab" 
+					data-target="#@domain.Name" 
+					type="button" role="tab" 
+					aria-controls="nav-home" 
+					aria-selected="@(isActive ? "true" : "false")">
+						@domain.Name
+				</button>
+
+			}
+		</div>
+	</nav>
+
+	<div class="tab-content" id="nav-tabContent">
+		@foreach (var domain in Model.Children.OfType<Domain>()){
+			var isActive =  domain.Name.Equals(domainQuery);
+			<div class="tab-pane fade @(isActive ? "active show" : string.Empty)" id="@domain.Name" role="tabpanel" aria-labelledby="@domain.Name">
+				<div id="accordion">
+					@foreach (var topic in domain.Children.OfType<Topic>())
+					{
+						<div class="card">
+							<div class="card-header" id="headingTwo">
+								<h5 class="mb-0">
+										<button class="btn btn-link collapsed" data-toggle="collapse" data-target="#@topic.Name" aria-expanded="false">
+											<span class="icon-plus-circle"></span><span class="icon-minus-solidsvg"></span> @topic.Name
+									</button>
+								</h5>
+							</div>
+
+							<div id="@topic.Name" class="collapse" data-parent="#accordion">
+								<div class="card-body row">
+
+									@* PAGINATOR @{
+										var projects = _projectService.GetProjectsByTopicId(topic.Key);
+										var hasPage = int.TryParse(pageQuery, out var currentPage);
+										var paginator = hasPage ? new Paginator<Project>(projects, currentPage, 3) : new Paginator<Project>(projects, pageSize: 3);
+									} *@
+
+									@foreach (var project in _projectService.GetProjectsByTopicId(topic.Key)) @*PAGINATOR paginator.Paginate()*@
+									{
+										<div class="col-md-4">
+											<a href="@project.Url()" class="cardList">
+												<div class="imgListHolder">
+													<img src="@project.FeaturedImage?.GetCropUrl("thumb")" />
+												</div>
+												<div class="cardTitle">
+													@project.Name
+												</div>
+												<div class="descr">
+													@project.ShortDescription
+												</div/>
+											</a>
+										</div>
+									}
+									
+									@*PAGINATOR @if (paginator.HasPages)
+									{
+										<div class='pagination w-100 d-flex justify-content-center pt-5'>
+											@Html.Raw(paginator.Footer("Previous", "Next"))
+										</div>
+									} *@
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+		}
+	</div>
+</div>

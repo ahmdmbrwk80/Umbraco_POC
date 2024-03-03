@@ -1,0 +1,47 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@inject IMasterPageService _masterPageService
+@{
+	Layout = null;
+    var currentCulture = Umbraco.CultureDictionary.Culture.ToString();
+    var isHomePage = _masterPageService.IsHomePage(Model.Id);
+}
+﻿
+<html class="@(currentCulture == "en-US" ? "en" : "ar")">
+	<head>
+    @await Html.PartialAsync("Shared/_GoogleAnalyticsTracking")
+	    @await Html.PartialAsync("Shared/_MetaData")
+    <link rel="stylesheet" href="~/assets/css/home.css">
+    <link rel="stylesheet" href="~/assets/css/slider.css">
+    <link rel="stylesheet" href="~/assets/css/header.css">
+    <link rel="stylesheet" href="~/assets/css/footer.css">
+    <link rel="stylesheet" href="~/assets//css/accordion.css">
+    <link rel="stylesheet" href="~/assets/frameworks/bootstrap-4.6.2-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="~/assets/css/main.css">
+    <link rel="stylesheet" href="~/assets/css/tabs.css">
+    <link rel="stylesheet" href="~/assets/css/listing.css">
+    <link rel="stylesheet" href="~/assets/css/contact-us.css">
+    <link rel="stylesheet" href="~/assets/css/photo-video-gallery.css">
+    <link rel="stylesheet" href="~/assets/icons/style.css">
+    <link rel="stylesheet" href="~/assets/plugins/owl-carousel-2/dist/assets/owl.carousel.css">
+    <link rel="stylesheet" href="~/assets/plugins/owl-carousel-2/dist/assets/owl.theme.default.min.css">
+    <link href="~/assets/css/all.min.css" rel="stylesheet" />
+    <link href="~/assets/css/leaflet.css" rel="stylesheet" />
+    <script src="~/assets/js/leaflet.js"></script>
+
+	</head>
+<body class="@(isHomePage? "home":"")">
+    @await Html.PartialAsync("Shared/_Header")
+    @{
+        @RenderBody()
+    }
+    @await Html.PartialAsync("Shared/_SideSocialMedia")
+@await Html.PartialAsync("Shared/_Footer")
+
+    <script src="~/assets/js/jquery-3.7.1.min.js"></script>
+    <script src="~/assets/frameworks/bootstrap-4.6.2-dist/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/scripts-before.js"></script>
+    <script src="~/assets/plugins/owl-carousel-2/dist/owl.carousel.js"></script>
+    <script src="~/assets/js/scripts.js"></script>
+    </body>
+</html>

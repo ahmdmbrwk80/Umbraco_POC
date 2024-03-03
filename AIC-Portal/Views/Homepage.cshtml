@@ -1,0 +1,202 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Services
+@inject ILocalizationService LocalizationService
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Models
+@{
+    Layout = "MasterTemplate.cshtml";
+    var site = Model.Root();
+    var HomePage = site.Children().Cast<HomePage>().First();
+    var HomePageSlider = HomePage?.MainSlider?.Select(x => x.Content);
+    var currentCulture = Umbraco.CultureDictionary.Culture.ToString();
+    //var AICProjects = LocalizationService.GetDictionaryItemByKey("AIC Projects").Translations.FirstOrDefault(e => e.LanguageIsoCode == currentCulture).Value;
+    var showMoreText = currentCulture == "en-US" ? "Show More" :" أظهر المزيد ";
+    var vedioText = currentCulture == "en-US" ? "Show Vedio": " الفيديو ";
+    var aICProjects = HomePage?.Projects?.ToList();
+
+    // careersDisplayedCareers
+    var DisplayedCareers = HomePage?.DisplayedCareers;
+    var careersectiontitle = HomePage.CareerTitle;
+    var CareerSectionlink = HomePage.CareerPageLink;
+    var CareerSectionDesc = HomePage.CareerDescription;
+    var careerButtonDisplay = HomePage.ButtonDisplayCareers;
+    //About us
+    var contactUsTitle = HomePage?.ContactUsSectionTitle;
+    var contactUsDis = HomePage?.ContactUsSectionDescription;
+    var contactUsLink = HomePage?.ContactUsRedirect;
+    var contactButtondisplay = HomePage?.ButtonDisplayContactUs;
+
+}
+
+<div class="mainContainer">
+    @* slider us section *@
+    <div class=" homeSectionPadding sliderSection" *ngIf="!noDataAvailable">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <img class="thumb" src="~/assets/images/home/slider.png">
+            </div>
+            <div class="col-12 col-md-6 homeSlider">
+
+
+                <div class="owl-carousel owl-carousel-home owl-theme">
+                    @if (HomePageSlider != null)
+                    {
+                        int counter = 1;
+                        foreach (var item in HomePageSlider)
+                        {
+                            var itemTitle = item.Value<string>("title");
+                            var itemDescription = item.Value<string>("description");
+                            var itemLink = item.Value<Link>("link");
+                            var itemvedioLink = item.Value<Link>("vedioLink");
+                            <div class="item">
+                                <div class="slideCont">
+                                    <div class="textCont">
+                                        <h2 class="slideTitle text-60 whiteColor mb-2">@itemTitle</h2>
+                                        <p class="desc whiteColor text-16 mb-3">@itemDescription</p>
+                                        @if (itemLink != null)
+                                        {
+                                            <a href="@itemLink.Url"  target="@itemLink?.Target" class="btn whiteBtn">
+                                                @showMoreText
+                                            </a>
+                                        }
+                                        @if (itemvedioLink != null)
+                                        {
+                                            <a href="@itemvedioLink.Url" target="@itemvedioLink?.Target" class="btn whiteBtn">
+                                                @vedioText
+                                            </a>
+                                        }
+                                        <p class="text-32 whiteColor numText">
+                                            @(counter < 10 ? "0" + counter : counter.ToString())
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            counter++;
+                        }
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    @* projects us section *@
+    <div class="row mt-5">
+        <div class="col-md-12"><h3>@HomePage.ProjectsSectionTitle</h3></div>
+        @if (aICProjects != null && aICProjects.Count > default(int))
+        {
+            foreach (var item in aICProjects)
+            {
+                var project = item.SafeCast<Project>();
+                if (project != null)
+                {
+                    <div class="col-md-4">
+                        <a href="@item.Url()" class="cardList">
+                            <div class="imgListHolder">
+                                <img src="@(project.FeaturedImage?.Url() ?? string.Empty)" />
+                            </div>
+                            <div class="cardTitle">
+                                @project.Name
+                            </div>
+                            <div class="descr">
+                                @project.ShortDescription
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        }
+    </div>
+
+
+
+
+    @* career us section *@
+    <div class="row careerSection">
+        <div class="col-md-12 position-relative">
+            
+@if (careersectiontitle != null)
+{
+                <h1>
+                    @careersectiontitle
+                </h1>
+}
+
+            @if (CareerSectionlink != null)
+            {
+                <a href="@CareerSectionlink.Url" class="careerLink btn whiteBtn">@careerButtonDisplay</a>
+            }
+</div>
+
+        <div class="col-md-12 whiteColor mt-4">
+@if (CareerSectionDesc != null)
+{
+    @CareerSectionDesc
+}
+</div>
+</div>
+<div class="row mt-5">
+        @if (DisplayedCareers != null)
+        {
+            foreach (var career in DisplayedCareers)
+            {
+                var careerTitle = career.Value<string>("careerTitle");
+                var careerStartDate = career.Value<string>("careerStartDate");
+                var careerExpiryDate = career.Value<string>("careerExpiryDate");
+                var careertype = career.Value<string>("careerType");
+                var jobReferenceNum = career.Value<string>("jobReferenceNum");
+                <div class="col-md-4">
+                    <a href="@career.Url()" class="cardList w-100">
+                        <div class="cardDate">
+                            @careerStartDate - @careerExpiryDate
+                        </div>
+                        <div class="cardTitle two">
+                            @careerTitle
+                        </div>
+                        <div class="cardNumber">
+                            @jobReferenceNum
+                        </div>
+                        <div class="cardType two">
+                            @careertype
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+
+
+
+
+
+@* contact us section *@
+<div class="contactHomeSection">
+    <div class="row mt-5">
+        <div class="col-md-12">
+                @if (contactUsTitle != null)
+                {
+                    <h1 class="text-center">@contactUsTitle</h1>
+                }
+        </div>
+
+        <div class="col-md-12 whiteColor text-center">
+        @if (contactUsDis != null)
+        {
+            @contactUsDis
+        }
+        </div>
+
+@if (contactUsLink != null)
+{
+                <a href="@contactUsLink.Url" class="btn whiteBtn"> @contactButtondisplay</a>
+
+}
+
+
+        </div>
+</div>
+</div>

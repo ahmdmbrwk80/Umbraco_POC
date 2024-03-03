@@ -1,0 +1,377 @@
+footer {
+  box-shadow: 0px 3px 20px #0000000c;
+  border-radius: 24px 24px 0px 0px;
+  background: #fff;
+  z-index: 999;
+  margin-top: 40px;
+  padding:30px 0;
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+}
+footer .blackColor {
+  font: normal normal bold 14px/20px Roboto;
+  display: block;
+  color:#000000;
+}
+footer .greyColor {
+  font: normal normal 500 13px/20px Roboto;
+  display: block;
+  color:#666666;
+}
+.footerLogo {
+  width: 110px;
+  height: 140px;
+}
+/*.footerInput {
+    position: relative;
+}
+.footerInput input {
+  border: 1px solid #000;
+  border-radius: 8px;
+  height: 35px;
+  padding: 5px;
+  background-color: transparent;
+  width: 100%;
+  padding-right: 25px;
+}
+.ar .footerInput input {
+  padding-left: 25px;
+  padding-right: 5px !important;
+}
+.subDialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.subDialog i {
+  font-size: 60px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: #ebecff;
+  color: #31326f;
+}
+
+.footerInput button {
+  position: absolute;
+  right: 7px;
+  color: #000;
+  top: 11px;
+  font-size: 13px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+.ar .footerInput button {
+  right: unset !important;
+  left: 7px;
+  transform: rotateY(180deg);
+}
+
+.footerSocial .socialIcons {
+  position: unset;
+  flex-direction: row;
+  display: flex;
+}
+.footerSocial .socialIcons a {
+  display: block !important;
+  margin-right: 20px;
+}
+.footerSocial .socialIcons a img {
+  margin-bottom: 0;
+}
+
+.ar .footerSocial .socialIcons a {
+  margin-right: 0;
+  margin-left: 20px;
+}
+footer .copyRight span{
+  font: normal normal 500 13px/20px Roboto;
+  color: #b6b6b6;
+}
+footer .copyRight span a{
+  color: #b6b6b6;
+}*/
+
+
+
+/*@media only screen and (max-width: 768px) {
+  .subDialog i {
+    font-size: 40px;
+    width: 70px;
+    height: 70px;
+  }
+}
+@media only screen and (min-device-width: 300px) and (max-device-width: 1024px) and (orientation: landscape) {
+  .subDialog i {
+    font-size: 40px;
+    width: 70px;
+    height: 70px;
+  }
+}*/
+
+
+
+/**** social icons ****/
+
+/*.socialIcons {
+  position: fixed;
+  z-index: 99;
+  top: 305px;
+  left: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.socialIcons a {
+  display: flex;
+  justify-content: space-between;
+  width: 40px;
+  margin-right: 25px;
+}
+.ar .socialIcons a {
+  margin-right: 0;
+  margin-left: 25px;
+}
+
+.socialIcons img {
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.socialIcons a:hover {
+  transform: scale(1.2);*/
+  /* justify-content: flex-end; */
+  /*transition: ease 0.5s;
+}
+.socialIcons h3,
+.socialIcons p,
+.socialIcons i {
+  display: none;
+}
+
+.PopCont h3 {
+  display: block;
+  text-align: center;
+  margin: 20px 0;
+}
+.PopCont {
+  margin: auto;
+  min-width: 45%;
+  height: fit-content;
+  max-height: 75vh;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border-radius: 15px;
+  opacity: 1;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.PopCont a {
+  position: relative;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 15px #0000000a;
+  border: 0.5px solid #3c57a1;
+  border-radius: 23px;
+  opacity: 1;
+  padding: 20px;
+  display: flex;
+  margin: 10px auto;
+  max-width: 50%;
+  justify-content: center;
+  width: 55%;
+}
+
+.PopCont img:hover {
+  padding-left: 0 !important;
+}
+
+.PopCont img {
+  width: 30px;
+  height: 30px;
+  transition: ease 0.3s;
+  margin: 0 30px;
+  position: absolute;
+}
+.shareCont span {
+  width: fit-content;
+  display: flex;
+  position: relative;
+  margin: auto;
+}
+.ar .socialIcons.PopIt img {
+  margin: 0 0 0 20px !important;
+}
+PopCont p {
+  display: flex;
+  text-align: left;
+  font: normal normal normal 16px/19px Roboto;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  text-decoration: none !important;
+  height: fit-content;
+  align-self: center;
+}
+a:link {
+  text-decoration: none !important;
+}
+PopCont i {
+  display: block;
+  font-size: 20px;
+  opacity: 1;
+  width: fit-content;
+  cursor: pointer;
+}
+.copiedPopup {
+  position: absolute;
+  top: -30px;
+  left: -38px;
+  background: #0000001f;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  transition: ease 0.3s;
+  min-width: 100px;
+  text-align: center;
+}
+.ar .copiedPopup {
+  right: -38px;
+  left: unset !important;
+}
+app-generic-social-icons .p-dialog {
+  display: flex;
+  flex-direction: column;
+  max-height: 90%;
+  transform: scale(1);
+  position: relative;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 15px #00000014;
+  border-radius: 15px;
+}
+.PopCont h1 {
+  text-align: center;
+  font: normal normal normal 22px/27px Roboto;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  margin: 25px 0 30px 0;
+  font-weight: 600;
+}
+.p-dialog-header-close {
+  position: absolute !important;
+  top: 20px;
+  left: 20px;
+  border: 1px solid #000;
+  border-radius: 50px;
+}
+.shareCont {
+  position: relative;
+  display: flex;
+  width: fit-content;
+  margin: 0 auto 30px auto;
+  text-align: left;
+  min-width: 65%;
+  align-items: center;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 15px #0000000a;
+  border: 0.5px solid #3c57a1;
+  border-radius: 23px;
+  opacity: 1;
+  padding: 18px;
+  cursor: pointer;
+}
+span.p-dialog-header-close-icon {
+  font-weight: bolder;
+  font-size: 12px;
+  cursor: pointer;
+}
+.ar .p-dialog-header-close {
+  left: unset;
+  right: 20px;
+}
+.p-dialog-mask {
+  background: #00000030 0% 0% no-repeat padding-box;
+}
+.sharedImg {
+  width: 20px;
+}*/
+
+/*@media only screen and (max-width: 768px) {
+  .socialIcons {
+    left: unset;
+    top: 225px;
+    right: -2px;
+  }
+
+  .ar .socialIcons {
+    left: -2px !important;
+    right: unset;
+  }
+  .socialIcons a:hover {
+    transform: scale(1);
+    justify-content: center;
+  }
+  .shareCont {
+    width: 100%;
+
+    align-items: center;
+  }
+  .PopCont img {
+    margin: 0;
+    position: static;
+  }
+  .shareCont span {
+    margin: 0 5px;
+  }
+  .ar .shareCont span {
+    text-align: right;
+  }
+  .shareCont img {
+    object-fit: unset !important;
+  }
+}
+
+@media only screen and (min-device-width: 300px) and (max-device-width: 1024px) and (orientation: landscape) {
+  .socialIcons {
+    left: unset;
+    top: 100px;
+    right: -2px;
+  }
+
+  .ar .socialIcons {
+    left: -2px !important;
+    right: unset;
+  }
+
+  .socialIcons a:hover {
+    transform: scale(1);
+    justify-content: center;
+  }
+  .PopCont {
+    max-height: max-content;
+  }
+}
+
+@media only screen and (min-width:1025px) and (max-width:1280px){
+  .PopCont img {
+    margin: 0;
+  }
+}
+
+@media only screen and (min-width:975px) and (max-width:1100px){
+  .shareCont{
+   width: 90%;
+  }
+}*/
+
+/** End of social icons **/

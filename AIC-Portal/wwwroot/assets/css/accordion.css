@@ -1,0 +1,39 @@
+#accordion .card {
+    margin-bottom: 20px;
+    display: block;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 15px;
+    overflow: hidden;
+    border: none;
+}
+#accordion .card-header {
+    padding: 0;
+    border-bottom:none;
+}
+    #accordion .card-header .btn-link {
+        color: #3C57A1;
+        font-size:22px;
+        width:100%;
+        padding:30px;
+        height:auto;
+        text-align:left;
+    }
+        #accordion .card-header .btn-link .icon-plus-circle {
+            display:none;
+        }
+        #accordion .card-header .btn-link .icon-minus-solidsvg {
+            display:inherit;
+        }
+        #accordion .card-header .btn-link.collapsed .icon-plus-circle {
+            display:inherit;
+        }
+        #accordion .card-header .btn-link.collapsed .icon-minus-solidsvg {
+            display:none;
+        }
+        #accordion .card-header .btn-link:hover {
+            text-decoration: none;
+        }
+        #accordion .card-header .btn-link:focus {
+            box-shadow: none;
+            text-decoration: none;
+        }

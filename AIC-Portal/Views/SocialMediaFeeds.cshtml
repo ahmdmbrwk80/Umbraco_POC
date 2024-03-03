@@ -1,0 +1,95 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.SocialMediaFeeds>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using AIC.Portal.Services
+@inject IYoutubeApiService _youtubeService
+@{
+	Layout = "MasterTemplate.cshtml";
+	var facebookPosts = Model.FacebookEmbeddedPosts;
+	var linkedInPosts = Model.LinkedInEmbeddedPosts;
+	var embedLinks = _youtubeService.GetLatestUploadsEmbedLinks();
+}
+
+
+
+
+<div class="mainContainer formRestyle socialFeeds">
+	<div cite="row">
+		<div class="col-md-12">
+			@* Static content *@
+			<h3>@Model.Name</h3>
+			@* End of Static content *@
+		</div>
+		<div class="col-md-12">
+			<div class="boxStyle w-100 noPadding facebookFeeds">
+
+				<h4 class="innerHeader"><span class="icon-facebook"></span> Facebook Posts</h4>
+@if(facebookPosts != null && facebookPosts.Any())
+{
+					<div class="owl-carousel owl-theme owl-feeds">
+		@foreach(var block in facebookPosts)
+		{
+			var post = block.Content.SafeCast<SocialMediaEmbeddedPost>();
+			if(post != null)
+			{
+				<div class="item">
+									<div class="boxStyle noPadding OFH">
+					@Html.Raw(post.EmbedCode)
+				</div>
+				</div>
+			}
+		}
+				</div>
+}
+</div>
+</div>
+
+
+		<div class="col-md-12 mt-5">
+			<div class="boxStyle w-100 noPadding facebookFeeds">
+				<h4 class="innerHeader"><span class="icon-linkedin"></span> LinkedIn Posts</h4>
+@if(linkedInPosts != null)
+{
+					<div class="owl-carousel owl-theme owl-feeds">
+		@foreach (var block in linkedInPosts)
+		{
+			var post = block.Content.SafeCast<SocialMediaEmbeddedPost>();
+			if(post != null)
+			{
+								<div class="item">
+									<div class="boxStyle noPadding OFH">
+					@Html.Raw(post.EmbedCode)
+				</div>
+				</div>
+			}
+		}
+	</div>
+}
+
+</div>
+</div>
+
+
+			<div class="col-md-12 mt-5">
+			<div class="boxStyle w-100 noPadding facebookFeeds">
+				<h4 class="innerHeader"><span class="icon-youtube"></span> YouTube Videos</h4>
+				<div class="owl-carousel owl-theme owl-feeds">
+	@foreach (var link in embedLinks)
+	{
+						<div class="item">
+							<div class="boxStyle noPadding OFH">
+			<iframe width="420"
+				height="315"
+				src="@link"
+				title="YouTube video player"
+				frameborder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+				</div>
+		</div>
+	}
+</divd>
+</div>
+</div>
+
+	</div>
+</div>

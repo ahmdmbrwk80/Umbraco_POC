@@ -1,0 +1,58 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.PhotoGalleries>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "MasterTemplate.cshtml";
+	var PhotoGallaries = Model.Children<PhotoGallery>();
+	var currentCulture = Umbraco.CultureDictionary.Culture.ToString();
+
+	
+	
+}
+<div class="mainContainer formRestyle">
+	<div cite="row">
+		<div class="col-md-12">
+			@* Static content *@
+			<h3>@Model.Name</h3>
+			@* End of Static content *@
+		</div>
+		<div class="col-md-12">
+			<div class="boxStyle w-100 p-5">
+
+				<div class="row">
+					
+
+					@foreach (var item in PhotoGallaries)
+					{
+						
+						
+
+	var Gallerylink = item.Url();
+						
+
+
+
+
+	if (item.CoverImage != null)
+	{
+							<div class="col-md-6">
+								<div class="boxStyle position-relative w-100">
+									<h5 class="galleryTitle"><strong>@item.GalleryTitle</strong></h5>
+									<span class="galleryDate">@item.GalleryDate.ToString("dd. MMMM yyyy")</span>
+									<span class="galleryDesc">@item.GalleryDescription</span>
+									
+		<a href="@Gallerylink" class="fixedScale">
+			<img src="@item.CoverImage.Url()" class="w-100" />
+		</a>
+								</div>
+							</div>
+	}
+					}
+	
+	</div>
+
+
+</div>
+</div>
+</div>
+</div>

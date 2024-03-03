@@ -1,0 +1,77 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.VideoGallery>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "MasterTemplate.cshtml";
+	var VideoGallery = Model.VideoGalleryVideos?.Select(x => x.Content);
+}
+
+
+
+
+
+<div class="mainContainer formRestyle">
+	<div cite="row">
+		<div class="col-md-12">
+			<div class="boxStyle w-100 pr-5 pl-5 pb-5">
+
+				<div class="row pb-4">
+					<div class="col-md-12">
+						<h5><stronge>@Model.Name</stronge></h5>
+					</div>
+				</div>
+
+
+
+
+				<div class="outer">
+					<div id="big" class="owl-carousel owl-theme">
+							@if (VideoGallery != null)
+							{
+								// render the images in the block list
+								foreach (var video in VideoGallery)
+								{
+									if (video.Value<IPublishedContent>("VideoElementType") != null)
+									{
+										var VideoGalleryvideo = video.Value<IPublishedContent>("VideoElementType").Url();
+									<div class="fixedScale">
+											<video controls>
+												<source src="@VideoGalleryvideo" type="video/mp4">
+												Your browser does not support the video tag.
+											</video>
+									</div>
+
+
+								}
+
+							}
+						}
+					</div>
+
+					<div id="thumbs" class="owl-carousel owl-theme">
+							@if (VideoGallery != null)
+							{
+								// render the images in the block list
+								foreach (var video in VideoGallery)
+								{
+									if (video.Value<IPublishedContent>("VideoElementType") != null)
+									{
+										var VideoGalleryvideo = video.Value<IPublishedContent>("VideoElementType").Url();
+									<div class="fixedScale cP">
+										<video class="pE">
+												<source src="@VideoGalleryvideo" type="video/mp4">
+												Your browser does not support the video tag.
+											</video>
+									</div>
+								}
+
+							}
+						}
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</div>

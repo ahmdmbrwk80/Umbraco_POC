@@ -1,0 +1,256 @@
+.homeSlider {
+  position: relative;
+}
+
+    .homeSlider::after {
+        content: "";
+        width: 6px;
+        height: calc(100% - 40px);
+        background-color: #ffffff;
+        position: absolute;
+        top: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 3px 15px #fff;
+    }
+
+.en .homeSlider::after {
+    left: -2.5px;
+}
+.ar .homeSlider::after {
+    right: -2.5px;
+}
+
+.slideCont {
+    display: flex;
+    width: 100%;
+    margin: auto;
+}
+    .slideCont .numText{
+        font-size:22px;
+        margin-top:25px;
+    }
+    .en .slideCont {
+        padding-left: 30px;
+    }
+.ar .slideCont {
+    padding-right: 30px;
+}
+.en .slideCont .whiteBtn{
+    margin-right:10px;
+}
+.en .slideCont .whiteBtn:last-child {
+    margin-right: 0px;
+}
+.ar .slideCont .whiteBtn {
+    margin-left: 10px;
+}
+.ar .slideCont .whiteBtn:last-child {
+    margin-left: 0px;
+}
+.slideTitle {
+    height: 75px;
+    overflow: hidden;
+    color: #ffffff;
+    font-size: 50px;
+}
+.slideCont .desc {
+    height: 110px;
+    overflow: hidden;
+    font: 20px;
+    color: #ffffff;
+}
+.sliderSection img {
+  width:100%;
+  object-fit:contain;
+}
+.sliderSection .owl-stage-outer{
+/*   pointer-events:none;
+*/}
+.ar .sliderSection .owl-stage-outer {
+   direction:ltr;
+}
+.ar .sliderSection .owl-stage-outer *{
+    direction: rtl;
+    text-align:right;
+}
+/*.ar .sliderSection img {
+    transform: rotateY(180deg);
+}*/
+
+.sliderSection .imgLayout::before {
+  content: "";
+  box-shadow: 0px 3px 15px #f6be00;
+  border: 3px solid #f6be00;
+  border-radius: 5px;
+  position: absolute;
+  top: 60px;
+  height: 370px;
+  left: 150px;
+}
+
+.ar .sliderSection .imgLayout::before {
+  left: usnet !important;
+  right: 150px;
+}
+
+.sliderSection .owl-theme .owl-dots {
+  margin-top:-60px !important;
+  display:inline-block;
+}
+
+.en .sliderSection .owl-theme .owl-dots {
+    margin-left: 30px
+}
+
+.ar .sliderSection .owl-theme .owl-dots {
+  margin-right:30px
+}
+
+.sliderSection .owl-theme .owl-dots .owl-dot {
+    width: 60px;
+    background: #424b54ba;
+    z-index: 9;
+    border-radius: 4px;
+    position:relative
+}
+    .sliderSection .owl-theme .owl-dots .owl-dot.active{
+        z-index:99;
+    }
+.en .sliderSection .owl-theme .owl-dots .owl-dot{
+    margin-left:-4px;
+}
+.ar .sliderSection .owl-theme .owl-dots .owl-dot {
+    margin-right: -4px;
+}
+.sliderSection .owl-theme .owl-dots .owl-dot span {
+    width: 60px;
+    height: 8px;
+    background: #424b54ba;
+    border-radius: 5px;
+    margin: 0;
+}
+
+.sliderSection .owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span {
+  background: #fff;
+}
+
+
+
+
+/*@media only screen and (max-width: 768px) {
+  .slideCont {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .slideCont .imgLayout {
+    width: 132px;
+    height: 160px;
+  }
+
+  .slideCont .imgLayout img {
+    height: 180px;
+    bottom: 20px;
+    width: 160px;
+  }
+
+  .textCont {
+    margin: 0;
+  }
+
+  .slideCont .imgLayout::before {
+    display: none;
+  }
+
+  .sliderSection .owl-theme .owl-dots {
+    top: 251px;
+    left: 0;
+    right: unset !important;
+  }
+
+  .ar .sliderSection .owl-theme .owl-dots {
+    left: unset !important;
+    right: 0 !important;
+  }
+
+  .sliderSection img {
+    height: 200px;
+    width: 100%;
+  }
+
+  .slideCont {
+    height: 300px;
+  }
+  .sliderSection {
+    padding-top: 30px;
+  }
+  .numText {
+    margin-top: 10px;
+  }
+}
+
+@media only screen and (min-device-width: 300px) and (max-device-width: 1024px) and (orientation: landscape) {
+  .slideCont {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .slideCont .imgLayout {
+    width: 132px;
+    height: 160px;
+  }
+
+  .slideCont .imgLayout img {
+    height: 180px;
+    bottom: 20px;
+    width: 160px;
+  }
+
+  .textCont {
+    margin: 0;
+  }
+
+  .slideCont .imgLayout::before {
+    display: none;
+  }
+
+  .sliderSection .owl-theme .owl-dots {
+    top: 251px;
+    left: 0;
+    right: unset !important;
+  }
+
+  .ar .sliderSection .owl-theme .owl-dots {
+    left: unset !important;
+    right: 0 !important;
+  }
+
+  .sliderSection img {
+    height: 200px;
+    width: 100%;
+  }
+
+  .slideCont {
+    height: 300px;
+  }
+
+  .sliderSection {
+    padding-top: 30px;
+  }
+
+  .numText {
+    margin-top: 10px;
+  }
+}
+@media only screen and (max-width: 1180px) and (min-width: 784px) {
+  .sliderSection .btn {
+    min-width: 110px !important;
+  }
+
+  .slideTitle {
+    font: normal normal bold 26px/65px Roboto;
+  }
+}
+
+*/

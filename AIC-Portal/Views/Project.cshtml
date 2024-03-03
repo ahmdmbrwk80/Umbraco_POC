@@ -1,0 +1,17 @@
+﻿@using AIC.Portal.Controllers
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Project>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	var queryParam = "?altTemplate=";
+	Layout = "MasterTemplate.cshtml";
+}
+<div class="mainContainer">
+	<div class="boxStyle">
+<h3>@Model.Name</h3>
+		<a href="@queryParam@ProjectsController.DemoTemplate" class="yellowBtn projectDemoBtn">Project Demo</a>
+		<img src="@Model.FeaturedImage?.Url()" class="mainImg mt-3 mb-3" />
+<p>@Model.Description</p>
+		<a href="@queryParam@ProjectsController.RelatedNewsTemplate" class="yellowBtn mt-3">RELATED NEWS</a>
+</div>
+</div>

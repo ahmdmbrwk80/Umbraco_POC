@@ -1,0 +1,77 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Models
+@inject IMasterPageService _masterPageService
+@{
+    var socialMediaInHome = _masterPageService.SocialMediaInHome();
+    var SocialMediaInInnerPages = _masterPageService.SocialMediaInInnerPages();
+    var IsHomePage = _masterPageService.IsHomePage(Model.Id);
+
+}
+
+<ul class="floatingSocial">
+    @if (IsHomePage)
+    {
+    
+    if (socialMediaInHome != null)
+    {
+        
+        foreach (var item in socialMediaInHome)
+        {
+            var itemTitle = item.Value<string>("title");
+            var itemLink = item.Value<Link>("link");
+            var itemImage = item.Value<IPublishedContent>("image")?.Url();
+                <li>
+                    <a href="@itemLink?.Url">
+                    <img src="@itemImage" style="width: 15;display: flex;" />
+                    </a>
+                </li>
+
+
+
+        }
+    }
+}
+else
+{
+    if (SocialMediaInInnerPages != null)
+    {
+        foreach (var item in SocialMediaInInnerPages)
+        {
+            var itemTitle = item.Value<string>("title");
+            var itemLink = item.Value<Link>("link");
+            var itemImage = item.Value<IPublishedContent>("image")?.Url();
+                <li>
+                    <a href="@itemLink?.Url">
+                    <img src="@itemImage" style="width: 15;display: flex;" />
+                    </a>
+                </li>
+
+
+        }
+    }
+}
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

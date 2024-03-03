@@ -1,0 +1,14 @@
+﻿@using AIC.Portal.ViewModels
+@using AIC.Portal.Controllers.Surface
+@model NewsletterSubscriberViewModel
+
+@using (Html.BeginUmbracoForm<NewsletterSubscriptionController>("Subscribe"))
+{
+    @Html.EditorForModel()
+    @Html.ValidationSummary()
+    @if (Html.TempData["SubscriptionError"] != null)
+    {
+        @Html.TempData["SubscriptionError"];
+    }
+    <input type="submit" value="Subscribe"/>
+}

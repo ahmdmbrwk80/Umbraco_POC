@@ -1,0 +1,21 @@
+body.home{
+    background-image:url(../images/home/homeLayout.png);
+    background-position:top center;
+    background-repeat:no-repeat;
+    background-size:cover;
+}
+
+
+    body.home .navbar a,
+    body.home .navbar *[class*="icon-"]{
+        color: #ffffff;
+    }
+
+body.home .navbar-light .navbar-nav .nav-link {
+    color:#ffffff !important;
+    font-weight: bold;
+}
+    body.home .navbar a:hover,
+    body.home .navbar-light .navbar-nav .nav-link:hover {
+        color: #F6BE00 !important;
+    }

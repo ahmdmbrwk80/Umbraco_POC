@@ -1,0 +1,30 @@
+﻿@inject ISEOService _SeoService
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var SeoModel = _SeoService.ReturnSeoData(Model.Id);
+    var keywords = SeoModel?.Tags; 
+    string keywordsString = keywords != null ? string.Join("،", keywords) : string.Empty;
+
+}
+@{
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@SeoModel.Title</title>
+    <meta name="description" content="@SeoModel.Description" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="@SeoModel.Title">
+    <meta name="keywords" content="@keywordsString">
+    <meta property="og:title" content="@SeoModel.Title">
+    <meta property="og:description" content="@SeoModel.Description">
+    <meta property="og:image" content="@SeoModel.SocialMediaShareImage" />
+    <meta property="og:url" content="@SeoModel.URL">
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@SeoModel.Title">
+    <meta name="twitter:description" content="@SeoModel.Description">
+    <meta name="twitter:image" content="@SeoModel.SocialMediaShareImage">
+    <meta name="author" content="https://asset-technology.com/">
+    <meta name="format-detection" content="telephone=no">
+}

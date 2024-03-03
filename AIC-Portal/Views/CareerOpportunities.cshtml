@@ -1,0 +1,41 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Careers>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "MasterTemplate.cshtml";
+	var CarrersListView = Model.Children<Career>();
+    var currentCulture = Umbraco.CultureDictionary.Culture.ToString();
+}
+
+
+<div class="mainContainer">
+<div class="row mt-5">
+        <div class="col-md-12">
+            @* Static content *@
+            <h3>@Model.Name</h3>
+            @* End of Static content *@
+        </div>
+    @foreach (var career in CarrersListView)
+    {
+
+        if (career != null)
+        {
+            var detailsviewLink = career.Url();
+            <div class="col-md-4">
+                <a href="@detailsviewLink" class="cardList w-100">
+                        <div class="cardDate">
+                            @career.CareerStartDate.ToString("dd. MMMM yyyy") - @career.CareerExpiryDate.ToString("dd. MMMM yyyy")
+                        </div>
+                    <div class="cardTitle two">
+                        @career.CareerTitle
+                    </div>
+                    <div class="cardNumber two">
+                        @career.JobReferenceNum
+                    </div>
+                </a>
+            </div>
+        }
+    }
+</div>
+</div>

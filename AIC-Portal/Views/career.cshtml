@@ -1,0 +1,97 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Career>
+
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    Layout = "MasterTemplate.cshtml";
+    var CarrersListView = Model.Children<Career>();
+	var CareerblcokList = Model.CareerInformation?.Select(x => x.Content);
+    var currentCulture = Umbraco.CultureDictionary.Culture.ToString();
+   
+}
+
+
+<div class="mainContainer">
+    <div class="row mt-5">
+        <div class="col-md-12">
+            @* Static content *@
+            <h3>@Model.Name</h3>
+            @* End of Static content *@
+        </div>
+
+
+        <div class="col-md-8">
+            <div class="boxStyle w-100 p-5">
+            @if (CareerblcokList != null)
+            {
+                foreach (var item in CareerblcokList)
+                {
+                    var itemTitle = item.Value<string>("title");
+                    var itemDescription = item.Value("description");
+
+                    <h3>@itemTitle</h3>
+                    <p>@itemDescription</p>
+
+
+
+
+                }
+            }
+        </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="boxStyle w-100 p-5 onScrollF">
+                <div class="row">
+                    <div class="col-md-12">
+                <span class="icon-business-bag-svgrepo-com"></span>
+                <div class="careerMainTitleWithIcon">
+@if (Model.CareerTitle != null)
+{
+<span class="careerSideTitle main w-100">@Model.CareerTitle</span>
+}
+@if(Model.CareerStartDate !=null)
+{
+<span class="careerSideTitleInfo main w-100">@Model.CareerStartDate</span>
+}
+                </div>
+                </div>
+                </div>
+<hr/>
+
+<div class="row">
+    <div class="col-md-6 mb-3">
+<span class="careerSideTitle w-100">Job Reference Number</span>
+@if(Model.JobReferenceNum != null)
+{
+<span class="careerSideTitleInfo w-100">@Model.JobReferenceNum</span>
+}
+                    </div>
+                    <div class="col-md-6  mb-3">
+<span class="careerSideTitle w-100">Type</span>
+@if (Model.CareerType != null)
+{
+<span class="careerSideTitleInfo w-100">@Model.CareerType</span>
+}
+                    </div>
+                    <div class="col-md-6">
+<span class="careerSideTitle w-100">location</span>
+@if (Model.CareerLoaction !=null)
+{
+<span class="careerSideTitleInfo w-100">@Model.CareerLoaction</span>
+}
+                    </div>
+                    <div class="col-md-6">
+<span class="careerSideTitle w-100">Career Expiry Date</span>
+@if (Model.CareerExpiryDate != null)
+{
+                            <span class="careerSideTitleInfo w-100">@Model.CareerExpiryDate.ToString("dd. MMMM yyyy")</span>
+}
+</div>
+                </div>
+
+
+        </div>
+        </div>
+    </div>
+</div>

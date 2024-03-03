@@ -1,0 +1,84 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using AIC.Portal.ViewModels
+@using Umbraco.Extensions
+@inject IMasterPageService _masterPageService
+@{
+    var appliedInnovationCenter = Model.SafeCast<AppliedInnovationCenter>();
+    var logosModel = _masterPageService.ReturnSiteLogos();
+    var logoFooter = logosModel?.LogoInFooter;
+    var footerFirstLvlItems = _masterPageService.ReturnFooterLinks();
+}
+
+<footer class="sectionPadding" (mouseleave)="leave()">
+
+    <div class="mainContainer">
+    <div class="row" id="footer">
+        <div class="col-lg-2 col-md-6 col-12 ">
+            <img class="footerLogo" src="@logoFooter" alt="">
+        </div>
+
+        @if (footerFirstLvlItems != null)
+        {
+            foreach (var item in footerFirstLvlItems)
+            {
+                var footerSecondLvlItems = item.Children.Where(i => i.HasProperty("showInFooter") && i.Value<bool>("showInFooter"));
+
+                <div class="col-lg-2 col-md-6 col-12">
+                    @if (!footerSecondLvlItems.Any())
+                    {
+@*                         @foreach (var firstitem in footerFirstLvlItems)
+                        { *@
+                            <a class="blackColor text-14 mb-1" href="@item.Url()">@item.Name</a>
+                        @* } *@
+                    }
+                    else
+                    {
+                        <h5 class="blackColor text-14 mb-1">@item.Name</h5>
+                        @foreach (var seconditem in footerSecondLvlItems)
+                        {
+                            <a class="greyColor text-14 mb-1" href="@seconditem.Url()">@seconditem.Name</a>
+                        }
+                    }
+                </div>
+            }
+        }
+
+        @await Html.PartialAsync("Shared/_NewsletterSubscriptionForm", new NewsletterSubscriberViewModel())
+
+@*         <div class="col-lg-2 col-md-6 col-12">
+            <h5 class="blackColor text-14 mb-1">Footer.MailingList</h5>
+            <div class="footerInput">
+                <input class="genericEmail" type="Email" placeholder="Email" />
+                <button (click)="add()" title="sumbit email button">
+                    <span class="icon-arrow-right"></span>
+                </button>
+            </div>
+
+
+
+
+
+
+            <div class="footerSocial mt-3">
+                <div class="socialIcons">
+                    <a title="link.name" href="link.url" target="_blank">
+                        <img src="assets/images/f.svg">
+                    </a>
+                    <a title="link.name" href="link.url" target="_blank">
+                        <img src="assets/images/t.svg">
+                    </a>
+                    <a title="link.name" href="link.url" target="_blank">
+                        <img src="assets/images/i.svg">
+                    </a>
+                    <a title="link.name" href="link.url" target="_blank">
+                        <img src="assets/images/l.svg">
+                    </a>
+                    <a title="link.name" href="link.url" target="_blank">
+                        <img src="assets/images/sh.svg">
+                    </a>
+                </div>
+            </div>
+        </div> *@
+    </div>
+    </div>
+</footer>

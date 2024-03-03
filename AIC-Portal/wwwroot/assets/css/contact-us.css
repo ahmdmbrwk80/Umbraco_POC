@@ -1,0 +1,46 @@
+.contactUsMapContainer{
+    border-radius:15px;
+}
+
+.contactInfoCard{
+    padding:0;
+    margin:0;
+}
+.en .contactInfoCard{
+    margin-left:20px;
+}
+.ar .contactInfoCard {
+    margin-right: 20px;
+}
+.contactInfoCard li {
+    list-style: none;
+    position: relative;
+    margin-bottom:30px;
+}
+    .contactInfoCard li:last-child{
+        margin-bottom:0;
+    }
+    .contactInfoCard li span {
+        display: inline-block;
+    }
+    .contactInfoCard li span.title {
+        color:#000000;
+        font-weight:bold;
+    }
+
+        .contactInfoCard li span.info {
+            color: #3C57A1;
+        }
+
+        .contactInfoCard li span[class*="icon-"] {
+            position:absolute;
+            top:4px;
+        }
+
+        .en .contactInfoCard li span[class*="icon-"] {
+            left:-20px;
+        }
+
+.ar .contactInfoCard li span[class*="icon-"] {
+    right: -20px;
+}

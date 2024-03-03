@@ -1,0 +1,34 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.AboutUsTopic>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "MasterTemplate.cshtml";
+	var AboutUsBlockList = Model.AboutUsBlockList?.Select(x => x.Content);
+}
+@if (AboutUsBlockList != null)
+{
+
+    foreach (var item in AboutUsBlockList)
+    {
+        var itemTitle = item.Value<string>("title");
+        var itemDescription = item.Value("description");
+        var itemImage = item.Value<IPublishedContent>("image")?.Url();
+
+            <div class="mainContainer">
+            <h3>@itemTitle</h3>
+	<div class="boxStyle">
+        <div class="row">
+            <div class="col-md-8">
+        <p>@itemDescription</p>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="@itemImage" class="mainImg" />
+        </div>
+                </div>
+        </div>
+        </div>
+
+        
+    }
+
+}

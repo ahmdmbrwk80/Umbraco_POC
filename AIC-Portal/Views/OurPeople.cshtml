@@ -1,0 +1,31 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.OurPeople>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "MasterTemplate.cshtml";
+	var People = Model.Children<Employee>();
+}
+
+
+
+<div class="mainContainer formRestyle">
+	<div class="boxStyle w-100">
+		<div class="row">
+@foreach (Employee person in People)
+{
+
+	
+	var PersonDetailsLink = person.Url();
+	<div class="col-md-3">
+					<a href="@PersonDetailsLink" class="boxStyle w-100">
+		<div class="ourPeopleAv">
+			<img src="@person.EmployeeImage.MediaUrl()" />
+		</div>
+		<span class="empName w-100">@person.EmployeeName</span>
+	</a>
+	</div>
+	
+}
+		</div>
+</div>
+</div>

@@ -1,0 +1,41 @@
+﻿@using AIC.Portal.ViewModels
+@model SearchViewModel
+@using AIC.Portal.Services.Abstractions
+@using AIC.Portal.Controllers.Surface
+@inject ISiteSettingsService _siteSettings
+@{
+    var searchableTypes = _siteSettings.GetAllowedSearchTypes();
+}
+
+
+
+<div class="btn-group">
+    <a href="javascript:void(0)" class="" data-toggle="dropdown" aria-expanded="false">
+    <span class="icon-search"></span>
+    </a>
+    <div class="dropdown-menu search">
+@using (
+    Html.BeginUmbracoForm<SearchController>(
+        nameof(SearchController.Search),
+        FormMethod.Post
+    ))
+{
+
+            @Html.EditorFor(m => m.Query, new { htmlAttributes = new { placeholder = "Type here", @class = "form-search" } })
+        @if (searchableTypes != null && searchableTypes.Any())
+        {
+            @Html.DropDownListFor(m => m.SearchableTypeId,
+                         new SelectList(searchableTypes, nameof(IPublishedContent.Key), nameof(IPublishedContent.Name)), new { @class = "form-select" })
+        }
+            @Html.EditorFor(m => m.FromDate, new { htmlAttributes = new { @class = "form-date" } })
+            @Html.EditorFor(m => m.ToDate, new { htmlAttributes = new { @class = "form-date" } })
+    <input type="submit" value="Search" />
+            @Html.ValidationSummary()
+
+            @if (Html.TempData["SearchError"] != null)
+            {
+                @Html.TempData["SearchError"]
+            }
+}
+    </div>
+</div>

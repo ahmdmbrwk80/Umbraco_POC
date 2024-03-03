@@ -1,0 +1,257 @@
+﻿@model AIC.Portal.ViewModels.contactUsViewModel
+@using AIC.Portal.Controllers
+@using AIC.Portal.Models
+@using Umbraco.Cms.Core.Services
+@inject ILocalizationService LocalizationService
+@using Microsoft.AspNetCore.Mvc
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Microsoft.AspNetCore.Mvc.ViewFeatures
+@using Microsoft.Extensions.Options
+@using Umbraco.Cms.Core.Web
+@inject IOptions<googleCaptchKeys> googleCaptchKeys
+
+
+@{
+    var dictionaryitems = LocalizationService.GetDictionaryItemKeyMap;
+    var test = LocalizationService.GetDictionaryItemByKey("TestDictionary").Translations;
+    var successeng = test.FirstOrDefault(e => e.LanguageIsoCode == "en-US").Value;
+    var successengAR = test.FirstOrDefault(e => e.LanguageIsoCode == "ar-EG").Value;
+
+    var siteKey = googleCaptchKeys.Value.siteKey;
+    
+    // arabic success messages
+    var successmassage = Model.lang == "en-US" ? successeng : successengAR;
+    // choose the field name acorrding to the language of the page 
+    var fullname = LocalizationService.GetDictionaryItemByKey("full name").Translations.FirstOrDefault(e => e.LanguageIsoCode == Model.lang).Value;
+    var email = LocalizationService.GetDictionaryItemByKey("email").Translations.FirstOrDefault(e => e.LanguageIsoCode == Model.lang).Value;
+    var phoneNumber = LocalizationService.GetDictionaryItemByKey("Phone number").Translations.FirstOrDefault(e => e.LanguageIsoCode == Model.lang).Value;
+    var message = LocalizationService.GetDictionaryItemByKey("message").Translations.FirstOrDefault(e => e.LanguageIsoCode == Model.lang).Value;
+    var work = LocalizationService.GetDictionaryItemByKey("work").Translations.FirstOrDefault(e => e.LanguageIsoCode == Model.lang).Value;
+    var type = LocalizationService.GetDictionaryItemByKey("type").Translations.FirstOrDefault(e => e.LanguageIsoCode == Model.lang).Value;
+    var Country = LocalizationService.GetDictionaryItemByKey("Country").Translations.FirstOrDefault(e => e.LanguageIsoCode == Model.lang).Value;
+    var city = LocalizationService.GetDictionaryItemByKey("city").Translations.FirstOrDefault(e => e.LanguageIsoCode == Model.lang).Value;
+    var failmessage = LocalizationService.GetDictionaryItemByKey("fail message").Translations.FirstOrDefault(e => e.LanguageIsoCode == Model.lang).Value;
+
+    var sumbit = Model.lang == "en-US" ? "sumbit" : "تسليم";
+}
+@* handel the google recpatcha  *@
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+
+@* V3 *@
+<script src="https://www.google.com/recaptcha/api.js?render=@siteKey"></script>
+@* <script>
+    console.log("reCAPTCHA ready!");
+    grecaptcha.ready(function () {
+        grecaptcha.execute('@siteKey',
+            { action: 'contact_us' })
+            .then(function (token) {
+                console.log(token);
+                $('#GoogleCaptchaToken').val(token)
+            });
+
+    });
+</script>
+ *@
+@* V2 *@
+<script type="text/javascript">
+    var onloadCallback = function () {
+        var widgetId = grecaptcha.render('recaptchaWidget', {
+            'sitekey': '@siteKey',
+            'callback': onRecaptchaSuccess
+        });
+    };
+
+    var onRecaptchaSuccess = function (response) {
+        
+
+        
+        document.getElementById('GoogleCaptchaToken').value = response;
+    };
+    
+</script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+
+
+@using (Html.BeginUmbracoForm<ContactUsformController>("InsertComment"))
+{
+    @Html.ValidationSummary()
+    ;
+    Html.AntiForgeryToken();
+
+        <div class="row">
+            <div class="col-md-3">
+            @Html.LabelFor(model => model.FullName, fullname)
+                @Html.TextBoxFor(model => model.FullName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FullName)
+            </div>
+             <div class="col-md-3">
+            @Html.LabelFor(model => model.EmailAddress, email)
+                @Html.TextBoxFor(model => model.EmailAddress, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EmailAddress)
+            </div>
+             <div class="col-md-3">
+            @Html.LabelFor(model => model.PhoneNumber, phoneNumber)
+                @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PhoneNumber)
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-3">
+            @Html.LabelFor(model => model.Type, type, type)
+            @Html.DropDownListFor(model => model.Type, Enumerable.Empty<SelectListItem>(), "Select Type", new { @class = "form-control", id = "typeDropdown" })
+            @Html.ValidationMessageFor(model => model.Type)
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-3">
+            @Html.LabelFor(model => model.Country, Country, Country)
+            @Html.DropDownListFor(model => model.Country, Enumerable.Empty<SelectListItem>(), "Select Country", new { @class = "form-control", id = "countryDropdown" })
+            @Html.ValidationMessageFor(model => model.Country)
+            </div>
+            <div class="col-md-3">
+            @Html.LabelFor(model => model.city, city, city)
+            @Html.DropDownListFor(model => model.city, Enumerable.Empty<SelectListItem>(), "Select City", new { @class = "form-control", id = "cityDropdown" })
+            @Html.ValidationMessageFor(model => model.city)
+            </div>
+        </div>
+    <div class="row mt-4">
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.work, work)
+            @Html.TextBoxFor(model => model.work, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.work)
+        </div>
+    </div>
+       <div class="row mt-4">
+        <div class="col-md-12">
+            @Html.LabelFor(model => model.Message, message)
+            @Html.TextAreaFor(model => model.Message, new { @class = "form-control", rows = 4 })
+            @Html.ValidationMessageFor(model => model.Message)
+        </div>
+        </div>
+
+     <div class="row mt-4">
+        <div class="col-md-12">
+            <div id="recaptchaWidget" class="g-recaptcha" data-sitekey="@siteKey"></div>
+    <input type="hidden" name="GoogleCaptchaToken" id="GoogleCaptchaToken" />
+    </div>
+    </div>
+
+     <div class="row mt-4">
+        <div class="col-md-12">
+            <button type="submit" class="yellowBtn">@sumbit</button>
+        </div>
+        </div>
+    @if ((string)TempData["status"] == "OK")
+    {
+
+        <div class="container">
+            @successmassage
+
+        </div>
+    }
+    else if ((string)TempData["status"] == "Fail")
+    {
+        <div class="container">
+
+            @failmessage
+
+        </div>
+    }
+}
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+@if (Model.lang == "en-US")
+{
+    <script>
+        $(document).ready(function () {
+            fetchData('countryName', 'type', 'governorateNameEn');
+        });
+    </script>
+}
+else if (Model.lang == "ar-EG")
+{
+    <script>
+        $(document).ready(function () {
+            fetchData('countryNameAR', 'typeAR', 'governorateNameAr');
+        });
+    </script>
+}
+<script>
+    function fetchData(countryProp, typeProp, cityNameProp) {
+        $.ajax({
+            url: 'https://localhost:44363/umbraco/surface/ContactUsform/getall',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log("hi");
+                console.log(data);
+
+                // Populate country dropdown
+                $('#countryDropdown').empty();
+                $.each(data.countries, function (i, country) {
+                    $('#countryDropdown').append($('<option>', {
+                        value: country.id,
+                        text: country[countryProp]
+                    }));
+                });
+
+                // Populate Types dropdown
+                $('#typeDropdown').empty();
+                $.each(data.dropDownTypes, function (i, type) {
+                    $('#typeDropdown').append($('<option>', {
+                        value: type.type,
+                        text: type[typeProp]
+                    }));
+                });
+
+                var initialValue = $('#countryDropdown').val();
+                if (initialValue !== '') {
+                    fetchCities(initialValue, cityNameProp);
+                }
+            },
+            error: function () {
+                console.error('Error occurred while fetching data.');
+            }
+        });
+
+        function fetchCities(countryId, cityNameProp) {
+            if (countryId) {
+                $.ajax({
+                    url: 'https://localhost:44363/umbraco/surface/ContactUsform/getgovernates',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { countryId: countryId },
+                    success: function (cities) {
+                        console.log(cities);
+                        $('#cityDropdown').empty();
+                        $.each(cities, function (i, city) {
+                            $('#cityDropdown').append($('<option>', {
+                                value: city.governorateNameEn,
+                                text: city[cityNameProp]
+                            }));
+                        });
+                    },
+                    error: function () {
+                        console.error('Error occurred while fetching cities.');
+                    }
+                });
+            } else {
+                $('#cityDropdown').empty();
+            }
+        }
+
+        $(document).ready(function () {
+            $('#countryDropdown').change(function () {
+                var countryId = $(this).val();
+                fetchCities(countryId, cityNameProp);
+            });
+        });
+    }
+</script>
+
+

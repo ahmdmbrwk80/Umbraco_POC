@@ -1,0 +1,60 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.VideoGalleries>
+
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "MasterTemplate.cshtml";
+	var VideoGallaries = Model.Children<VideoGallery>();
+	var currentCulture = Umbraco.CultureDictionary.Culture.ToString();
+	
+}
+
+
+<div class="mainContainer formRestyle">
+	<div cite="row">
+		<div class="col-md-12">
+			@* Static content *@
+			<h3>@Model.Name</h3>
+			@* End of Static content *@
+		</div>
+		<div class="col-md-12">
+			<div class="boxStyle w-100 p-5">
+
+				<div class="row">
+
+
+@foreach (var item in VideoGallaries)
+{
+	var Gallerylink = item.Url();
+
+						if (item.VideoGalleryCoverVideo != null)
+						{
+						<div class="col-md-6">
+							<div class="boxStyle position-relative w-100">
+									<span class="icon-play3 videoIcon"></span>
+
+	<h5 class="galleryTitle">@item.VideoGalleryTitle</h5>
+
+									<span class="galleryDate">@item.VideoGalleryDate.ToString("dd. MMMM yyyy")</span>
+
+	<span class="galleryDesc">@item.VideoGalleryDiscerption</span>
+
+	
+
+	
+								<a href="@Gallerylink" class="fixedScale">
+									<img src="@item.VideoGalleryCoverVideo.Url()" class="fixedScale" />
+		</a>
+
+	</div>
+	</div>
+						}
+}
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,35 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Employee>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "MasterTemplate.cshtml";
+}
+@* render the title  *@
+
+
+
+<div class="mainContainer formRestyle">
+	<div class="boxStyle w-100">
+		<div class="row">
+			<div class="col-md-3">
+				@* render the image  *@
+				<div class="boxStyle w-100">
+				<div class="ourPeopleAv">
+					<img src="@Model.EmployeeImage.MediaUrl()" />
+				</div>
+					<span class="empName w-100">@Model.EmployeeName</span>
+					<span class="empTitle">@Model.EmployeeTitle</span>
+				</div>
+			</div>
+			<div class="col-md-9">
+
+@* render the description *@
+<p>@Model.EmployeeDescription</p>
+			</div>
+
+			
+
+</div>
+</div>
+</div>
+

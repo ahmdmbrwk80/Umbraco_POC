@@ -1,0 +1,42 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Project>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "MasterTemplate.cshtml";
+}
+
+
+<div class="mainContainer formRestyle">
+	<div cite="row">
+		<div class="col-md-12">
+			<div class="boxStyle w-100 pr-5 pl-5 pb-5">
+				<div cite="row">
+					<div class="col-md-12">
+						<h4><strong>@Model.Name</strong></h4>
+					</div>
+					</div>
+@if(Model.RelatedNews != null && Model.RelatedNews.Any())
+{
+	<ul class="projectRelatedNews">
+		@foreach (var block in Model.RelatedNews)
+		{
+			var content = block.Content.SafeCast<ProjectRelatedNews>();
+			if(content != null)
+			{
+				<li>
+					<span>@content.Title</span>
+					@if(content.Link != null)
+					{
+										<a href="@content.Link.Url" target="@content.Link.Target" class="projectRelatedNewsLink">@content.Link.Name <span class="icon-open-external-link-icon"></span></a>
+					}
+				</li>
+			}
+		}
+	</ul>
+}
+
+
+</div>
+</div>
+</div>
+</div>

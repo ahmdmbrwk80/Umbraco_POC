@@ -1,0 +1,83 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using AIC.Portal.ViewModels
+@inject IMasterPageService _masterPageService
+@inject IProjectService _projectService
+
+@{
+    var isCulture_EN = Umbraco.CultureDictionary.Culture.ToString().Equals("en-US");
+    bool isProjectsPage = Model.ContentType.Alias.Equals(ProjectDomains.ModelTypeAlias);
+    var pageModel = 
+        isProjectsPage ? 
+        Umbraco
+        .ContentAtRoot().OfType<AppliedInnovationCenter>()
+        .First().FirstChild<Projects>() : Model;
+
+    if (pageModel is null) pageModel = Model;
+
+    var modelUrl = isCulture_EN ? pageModel.Url(culture: "ar-EG") : pageModel.Url(culture: "en-US");
+
+    var headerFirstLvlItems = _masterPageService.ReturnHeaderLinks();
+    var logosModel = _masterPageService.ReturnSiteLogos();
+    var logoInHome = logosModel?.LogoInHome;
+    var logoInInnerPages = logosModel?.LogoInInnerPages;
+    //Use This For Check U are In HomePage or InnerPages 
+    var isHomePage = _masterPageService.IsHomePage(Model.Id);
+}
+
+<div class="headerWrapper">
+    <div class="mainContainer dFlex">
+
+    @if(isHomePage){
+        <img src="@logoInHome" class="whiteLogo" />
+    }
+    else{
+        <img src="@logoInInnerPages" class="coloredLogo" />
+    }
+        
+
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                @foreach (var item in headerFirstLvlItems)
+                {
+                    bool isProjects = item.ContentType.Alias.Equals(Projects.ModelTypeAlias);
+
+                    var headerSecondLvlItems = isProjects ? 
+                        _projectService.GetAllProjectsDomains() :
+                        item.Children.Where(i => i.HasProperty("showInHeader") && i.Value<bool>("showInHeader"));
+
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        @if(!headerSecondLvlItems.Any())
+                        {
+                                <li class="nav-item"><a href="@item.Url()" class="nav-link">@item.Name</a></li>
+                        }
+                        else
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @item.Name
+                                </a>
+                                <ul class="dropdown-menu">
+                                @foreach(var seconditem in headerSecondLvlItems)
+                                {
+                                    var link = isProjects ? item.Url() + $"?{IProjectService.QueryParam}={seconditem.Name.Replace(' ', '-')}" : @seconditem.Url();
+                                    <li>
+                                        <a class="dropdown-item" href="@link">@seconditem.Name</a>
+                                    </li>
+                                }
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                    
+                }
+                <div class="language-switcher">
+                    <span class="icon-view"></span> <a href="@modelUrl">@(isCulture_EN ? "AR" : "EN")</a>
+                </div>
+                @await Html.PartialAsync("_SearchForm", new SearchViewModel())
+            </div>
+        </nav>
+    </div>
+</div>

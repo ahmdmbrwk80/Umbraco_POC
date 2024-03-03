@@ -1,0 +1,69 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.PhotoGallery>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "MasterTemplate.cshtml";
+	var GalleryImages = Model.Images?.Select(x => x.Content);
+}
+
+
+<div class="mainContainer formRestyle">
+	<div cite="row">
+		<div class="col-md-12">
+			<div class="boxStyle w-100 pr-5 pl-5 pb-5">
+
+				<div class="row pb-4">
+					<div class="col-md-12">
+						<h5><stronge>@Model.Name</stronge></h5>
+					</div>
+				</div>
+			
+
+
+
+                <div class="outer">
+						<div id="big" class="owl-carousel owl-theme">
+					@if(GalleryImages != null)
+{
+	// render the images in the block list
+	foreach(var image in GalleryImages)
+	{	
+		if (image.Value<IPublishedContent>("blockListImage")!= null)
+		{
+
+									var ImageGalleryImage = image.Value<IPublishedContent>("blockListImage").Url();
+										<div class="fixedScale">
+									<img src="@ImageGalleryImage" />
+									</div>
+                    
+
+				}
+
+			}
+		}
+						</div>
+
+                    <div id="thumbs" class="owl-carousel owl-theme">
+						@if(GalleryImages != null)
+{
+	// render the images in the block list
+	foreach(var image in GalleryImages)
+	{	
+		if (image.Value<IPublishedContent>("blockListImage")!= null)
+		{
+									var ImageGalleryImage = image.Value<IPublishedContent>("blockListImage").Url();
+									<div class="fixedScale">
+									<img src="@ImageGalleryImage" />
+									</div>
+								}
+
+							}
+						}
+                    </div>
+                </div>
+
+
+</div>
+</div>
+</div>
+</div>

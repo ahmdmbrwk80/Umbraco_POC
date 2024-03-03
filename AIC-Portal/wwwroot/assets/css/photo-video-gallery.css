@@ -1,0 +1,160 @@
+.outer {
+    margin: 0 auto;
+}
+
+#big .item {
+    background: #ec6e46;
+    padding: 120px 0px;
+    margin: 2px;
+    color: #FFF;
+    border-radius: 3px;
+    text-align: center;
+}
+
+#thumbs .item {
+    background: #C9C9C9;
+    height: 70px;
+    line-height: 70px;
+    padding: 0px;
+    margin: 2px;
+    color: #FFF;
+    border-radius: 3px;
+    text-align: center;
+    cursor: pointer;
+}
+
+    #thumbs .item h1 {
+        font-size: 18px;
+    }
+
+#thumbs .current .item {
+    background: #FF5722;
+}
+
+.owl-theme .owl-nav [class*='owl-'] {
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+    .owl-theme .owl-nav [class*='owl-'].disabled:hover {
+        background-color: #D6D6D6;
+    }
+
+#big.owl-theme {
+    position: relative;
+}
+
+    #big.owl-theme .owl-next, #big.owl-theme .owl-prev {
+        background: #f1f1f1;
+        width:40px;
+        line-height: 40px;
+        height: 40px;
+        text-align: center;
+        border-radius:50%;
+        border:1px solid #D6D6D6
+    }
+
+
+
+#thumbs.owl-theme .owl-next, #thumbs.owl-theme .owl-prev {
+    background: #333;
+}
+#thumbs.owl-carousel{
+    margin-top:20px;
+}
+    #thumbs.owl-carousel .owl-item img{
+        cursor:pointer;
+    }
+    .en #thumbs.owl-carousel .owl-item {
+        padding-right: 20px;
+    }
+.ar #thumbs.owl-carousel .owl-item {
+    padding-right: 20px;
+}
+
+
+.ar .outer,
+.ar .outer * {
+    direction: ltr !important;
+}
+
+
+#big.owl-carousel .owl-nav {
+    position: absolute;
+    top: -75px;
+}
+.en #big.owl-carousel .owl-nav {
+    right: 0px;
+}
+.ar #big.owl-carousel .owl-nav {
+    left: 0px;
+}
+
+.owl-theme .owl-nav [class*=owl-]:hover{
+    color:#000000 !important;
+}
+
+
+
+
+
+
+
+
+/**************/
+
+.galleryDesc {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    right: 30px;
+    background: rgb(0,0,0);
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+    padding:20px;
+    border-radius:10px;
+    pointer-events:none;
+}
+
+    .galleryDesc p {
+        color: #ffffff;
+        font-size: 12px;
+        margin-bottom:0;
+        cursor:pointer;
+        pointer-events:none;
+    }
+
+.galleryDate{
+    position:absolute;
+    top:30px;
+    font-size:14px;
+    font-style:italic;
+    color:#cccccc;
+}
+
+.en .galleryDate {
+    right:30px;
+}
+
+h5.galleryTitle{
+height:30px;
+}
+
+.videoIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -10px;
+    margin-left: -30px;
+    width: 60px;
+    height: 60px;
+    background-color: #FFF;
+    border-radius: 50%;
+    z-index: 9;
+    line-height:60px !important;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 18px;
+    color: #f6be00;
+    cursor:pointer;
+    pointer-events:none;
+}
